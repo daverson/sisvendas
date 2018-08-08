@@ -1,6 +1,7 @@
 import { CategoriaService } from './../providers/categoria.service';
 import { Component, OnInit } from '@angular/core';
 import { Categoria } from '../models/categoria';
+import * as _ from "lodash";
 
 @Component({
   selector: 'app-categoria-consulta',
@@ -20,7 +21,7 @@ export class CategoriaConsultaComponent implements OnInit {
 
   ngOnInit() {
    this.search(1,10);
-   this.totalItems = this.categorias.length;
+   this.totalItems = 15;
   }
 
   loadPage(page: number) {
@@ -31,6 +32,10 @@ export class CategoriaConsultaComponent implements OnInit {
 	}
 
   search(page, pageSize) {
-    this.categorias = this.categoriaService.getCategorias();
+    console.log(page);
+    this.categorias = this.categoriaService.getCategoriasPaginada(page);
+    if (this.nome != "") {
+      this.categorias = _.filter(this.categorias,{nome:this.nome});
+    }
   }
 }

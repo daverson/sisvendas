@@ -47,12 +47,12 @@
                 <a class="btn btn-default col-sm-2" [routerLink]="['/categoria/editar', categoria.id]">
                   <fa name="edit"></fa>
                 </a>
-                <button class="btn btn-default col-sm-2" [routerLink]="['/categoria/visualizar', categoria.id]">
+                <a class="btn btn-default col-sm-2" [routerLink]="['/categoria/visualizar', categoria.id]">
                   <fa name="search"></fa>
-                </button>
-                <button class="btn btn-default col-sm-2" (click)="delete(categoria, categoria.id)">
+                </a>
+                <a class="btn btn-default col-sm-2" (click)="delete(categoria, categoria.id)">
                   <fa name="trash"></fa>
-                </button>
+                </a>
               </td>
             </tr>
           </tbody>
