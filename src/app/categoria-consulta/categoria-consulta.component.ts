@@ -1,3 +1,4 @@
+import { CategoriaService } from './../providers/categoria.service';
 import { Component, OnInit } from '@angular/core';
 import { Categoria } from '../models/categoria';
 
@@ -8,19 +9,28 @@ import { Categoria } from '../models/categoria';
 })
 export class CategoriaConsultaComponent implements OnInit {
 
-  constructor() { }
+  totalItems: any;
+	page: any = 0;
+	pageSize: any = 10;
+	previousPage: any;
   categorias = new Array();
+  nome = '';
+  
+  constructor(private categoriaService:CategoriaService) { }
+
   ngOnInit() {
-    this.categorias.push(this.gerarCategoria('laticionio', null));
-    this.categorias.push(this.gerarCategoria('leite', this.categorias[0]));
-    this.categorias.push(this.gerarCategoria('arroz', null));
+   this.search(1,10);
+   this.totalItems = this.categorias.length;
   }
 
-  gerarCategoria(nome, pai) {
-    let categoria = new Categoria();
-    categoria.nome = nome;
-    categoria.categoriaPai = pai;
-    
-    return categoria;
+  loadPage(page: number) {
+		if (page !== this.previousPage) {
+			this.previousPage = page;
+			this.search(page, this.pageSize);
+		}
+	}
+
+  search(page, pageSize) {
+    this.categorias = this.categoriaService.getCategorias();
   }
 }
