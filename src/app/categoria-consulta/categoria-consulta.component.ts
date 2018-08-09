@@ -1,6 +1,6 @@
 import { CategoriaService } from './../providers/categoria.service';
 import { Component, OnInit } from '@angular/core';
-import { Categoria } from '../models/categoria';
+import swal from 'sweetalert2';
 import * as _ from "lodash";
 
 @Component({
@@ -32,10 +32,33 @@ export class CategoriaConsultaComponent implements OnInit {
 	}
 
   search(page, pageSize) {
-    console.log(page);
     this.categorias = this.categoriaService.getCategoriasPaginada(page);
     if (this.nome != "") {
       this.categorias = _.filter(this.categorias,{nome:this.nome});
     }
   }
+
+  delete(index) {
+		swal({
+			title: 'Você tem certeza?',
+			text: "Deseja realmente excluir esta Categoria!",
+			type: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Excluir!',
+			cancelButtonText: 'Cancelar!',
+			reverseButtons: true
+		}).then((result) => {
+			if (result.value) {
+					this.categorias.splice(index, 1);
+					swal(
+						'Deletado!',
+						'Categoria excluída com sucesso.',
+						'success'
+					)
+			}
+		})
+	}
+
 }

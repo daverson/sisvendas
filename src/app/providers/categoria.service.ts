@@ -6,12 +6,12 @@ import { Injectable } from '@angular/core';
 })
 export class CategoriaService {
 
-  categorias = [];
-  
+  categorias = [];  
+  categoriasSalvas = [];  
+  categoriasMerge = [];  
   constructor() { 
   }
 
- 
   gerarCategoria(identificador, nome, pai) {
     let categoria = new Categoria();
     categoria.id = identificador;
@@ -58,7 +58,9 @@ export class CategoriaService {
       this.categorias.push(this.gerarCategoria(15,'Processador', this.getCategoriaPai(13)));
       this.categorias.push(this.gerarCategoria(16,'Placa de Vídeo', this.getCategoriaPai(13)));
 
-    return this.categorias;
+      this.categoriasMerge = this.categorias.concat(JSON.parse(sessionStorage.getItem('categoriasSalvas'))); 
+
+      return this.categoriasMerge;
   }
 
   gerarCategoriasPaginada(page) {
@@ -82,8 +84,10 @@ export class CategoriaService {
       this.categorias.push(this.gerarCategoria(15,'Processador', this.getCategoriaPai(13)));
       this.categorias.push(this.gerarCategoria(16,'Placa de Vídeo', this.getCategoriaPai(13)));
     }
+    
+    this.categoriasMerge = this.categorias.concat(JSON.parse(sessionStorage.getItem('categoriasSalvas'))); 
 
-    return this.categorias;
+    return this.categoriasMerge;
   }
 
   getCategoriasPaginada(page) {
@@ -92,5 +96,13 @@ export class CategoriaService {
 
   getCategorias() {
     return this.gerarCategorias();
+  }
+
+  save(categoria:Categoria) {
+    this.categoriasSalvas = JSON.parse(sessionStorage.getItem('categoriasSalvas'));
+    let count = this.categoriasMerge.length;
+    categoria.id = count + 1;
+    this.categoriasSalvas.push(categoria);
+    sessionStorage.setItem('categoriasSalvas', JSON.stringify(this.categoriasSalvas));
   }
 }

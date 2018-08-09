@@ -3,6 +3,7 @@ import { element } from 'protractor';
 import { Categoria } from './../models/categoria';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-categoria-create',
@@ -11,7 +12,9 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CategoriaCreateComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private categoriaService:CategoriaService) { }
+  constructor(private route: ActivatedRoute, 
+    private categoriaService:CategoriaService,
+    private toastr: ToastrService) { }
 
   categoria = new Categoria();
   categorias = [];
@@ -45,5 +48,10 @@ export class CategoriaCreateComponent implements OnInit {
         this.categoria = element;
       }  
     });
+  }
+
+  save() {
+    this.categoriaService.save(this.categoria);
+    this.toastr.success('Categoria cadastrada com sucesso!')
   }
 }
