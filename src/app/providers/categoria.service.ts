@@ -58,7 +58,11 @@ export class CategoriaService {
       this.categorias.push(this.gerarCategoria(15,'Processador', this.getCategoriaPai(13)));
       this.categorias.push(this.gerarCategoria(16,'Placa de Vídeo', this.getCategoriaPai(13)));
 
-      this.categoriasMerge = this.categorias.concat(JSON.parse(sessionStorage.getItem('categoriasSalvas'))); 
+      this.categoriasMerge = this.categorias;
+      if (sessionStorage.getItem('categoriasSalvas') != null) {
+        this.categoriasMerge = this.categorias.concat(JSON.parse(sessionStorage.getItem('categoriasSalvas'))); 
+      }
+  
 
       return this.categoriasMerge;
   }
@@ -84,8 +88,10 @@ export class CategoriaService {
       this.categorias.push(this.gerarCategoria(15,'Processador', this.getCategoriaPai(13)));
       this.categorias.push(this.gerarCategoria(16,'Placa de Vídeo', this.getCategoriaPai(13)));
     }
-    
-    this.categoriasMerge = this.categorias.concat(JSON.parse(sessionStorage.getItem('categoriasSalvas'))); 
+    this.categoriasMerge = this.categorias;
+    if (sessionStorage.getItem('categoriasSalvas') != null) {
+      this.categoriasMerge = this.categorias.concat(JSON.parse(sessionStorage.getItem('categoriasSalvas'))); 
+    }
 
     return this.categoriasMerge;
   }
@@ -100,6 +106,9 @@ export class CategoriaService {
 
   save(categoria:Categoria) {
     this.categoriasSalvas = JSON.parse(sessionStorage.getItem('categoriasSalvas'));
+    if (this.categoriasSalvas == null) {
+      this.categoriasSalvas = []
+    }
     let count = this.categoriasMerge.length;
     categoria.id = count + 1;
     this.categoriasSalvas.push(categoria);

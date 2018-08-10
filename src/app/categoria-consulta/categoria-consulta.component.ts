@@ -32,7 +32,7 @@ export class CategoriaConsultaComponent implements OnInit {
 	}
 
   search(page, pageSize) {
-    this.categorias = this.categoriaService.getCategoriasPaginada(page);
+		this.categorias = this.categoriaService.getCategoriasPaginada(page);
     if (this.nome != "") {
       this.categorias = _.filter(this.categorias,{nome:this.nome});
     }
