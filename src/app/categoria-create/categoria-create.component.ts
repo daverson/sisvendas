@@ -1,9 +1,8 @@
-import { CategoriaService } from './../providers/categoria.service';
-import { element } from 'protractor';
-import { Categoria } from './../models/categoria';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Categoria } from './../models/categoria';
+import { CategoriaService } from './../providers/categoria.service';
 
 @Component({
   selector: 'app-categoria-create',
@@ -18,11 +17,13 @@ export class CategoriaCreateComponent implements OnInit {
     private router: Router) { }
 
   categoria = new Categoria();
-  categorias = [];
+  categorias:Array<Categoria> = [];
   disable;
   edit;
   ngOnInit() {
-    this.categorias = this.categoriaService.getCategorias();
+    this.categoriaService.getCategorias().subscribe((data: any) => {
+			this.categorias = data.resource;
+		});
 
     console.log(this.categorias);
 
@@ -44,11 +45,7 @@ export class CategoriaCreateComponent implements OnInit {
   }
 
   getById(identificador) {
-    this.categorias.forEach(element => {
-      if (element.id == identificador) {
-        this.categoria = element;
-      }  
-    });
+    this.categoriaService.getCategoria(identificador).subscribe((data:any) => this.categoria = data)
   }
 
   save() {

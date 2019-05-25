@@ -1,17 +1,18 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule, Routes } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule, Routes } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-
 import { AppComponent } from './app.component';
-import { CategoriaCreateComponent } from './categoria-create/categoria-create.component';
 import { CategoriaConsultaComponent } from './categoria-consulta/categoria-consulta.component';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { CategoriaCreateComponent } from './categoria-create/categoria-create.component';
 import { CategoriaPaiPipe } from './pipe/categoria-pai.pipe';
+import { HttpClientModule } from '@angular/common/http';
+
 
 const appRoutes: Routes = [
    { path: 'categoria', component: CategoriaConsultaComponent },
@@ -37,7 +38,8 @@ const appRoutes: Routes = [
     ),
     AngularFontAwesomeModule,
     BrowserAnimationsModule, 
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

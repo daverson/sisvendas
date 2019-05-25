@@ -1,5 +1,7 @@
 import { Categoria } from './../models/categoria';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +11,9 @@ export class CategoriaService {
   categorias = [];  
   categoriasSalvas = [];  
   categoriasMerge = [];  
-  constructor() { 
-  }
+  
+	constructor(protected http: HttpClient) {
+	}
 
   gerarCategoria(identificador, nome, pai) {
     let categoria = new Categoria();
@@ -97,11 +100,15 @@ export class CategoriaService {
   }
 
   getCategoriasPaginada(page) {
-    return this.gerarCategoriasPaginada(page);
+    return this.http.get('http://localhost:8080/categoria/listar');
+  }
+  
+  getCategoria(id) {
+    return this.http.get('http://localhost:8080/categoria/'+id);
   }
 
-  getCategorias() {
-    return this.gerarCategorias();
+  getCategorias()  {
+    return this.http.get<Categoria[]>('http://localhost:8080/categoria/listar');
   }
 
   save(categoria:Categoria) {
