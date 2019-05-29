@@ -112,13 +112,15 @@ export class CategoriaService {
   }
 
   save(categoria:Categoria) {
-    this.categoriasSalvas = JSON.parse(sessionStorage.getItem('categoriasSalvas'));
-    if (this.categoriasSalvas == null) {
-      this.categoriasSalvas = []
-    }
-    let count = this.categoriasMerge.length;
-    categoria.id = count + 1;
-    this.categoriasSalvas.push(categoria);
-    sessionStorage.setItem('categoriasSalvas', JSON.stringify(this.categoriasSalvas));
+    return this.http.post('http://localhost:8080/categoria', categoria);
+
+    // this.categoriasSalvas = JSON.parse(sessionStorage.getItem('categoriasSalvas'));
+    // if (this.categoriasSalvas == null) {
+    //   this.categoriasSalvas = []
+    // }
+    // let count = this.categoriasMerge.length;
+    // categoria.id = count + 1;
+    // this.categoriasSalvas.push(categoria);
+    // sessionStorage.setItem('categoriasSalvas', JSON.stringify(this.categoriasSalvas));
   }
 }
