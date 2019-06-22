@@ -12,10 +12,12 @@ import { CategoriaConsultaComponent } from './categoria-consulta/categoria-consu
 import { CategoriaCreateComponent } from './categoria-create/categoria-create.component';
 import { CategoriaPaiPipe } from './pipe/categoria-pai.pipe';
 import { HttpClientModule } from '@angular/common/http';
+import { ProdutoConsultaComponent } from './produto-consulta/produto-consulta.component';
 
 
 const appRoutes: Routes = [
    { path: 'categoria', component: CategoriaConsultaComponent },
+   { path: 'produto', component: ProdutoConsultaComponent },
    { path: 'categoria/incluir', component: CategoriaCreateComponent },
    { path: 'categoria/visualizar/:id', component: CategoriaCreateComponent },
    { path: 'categoria/editar/:id', component: CategoriaCreateComponent }
@@ -25,7 +27,8 @@ const appRoutes: Routes = [
     AppComponent,
     CategoriaCreateComponent,
     CategoriaConsultaComponent,
-    CategoriaPaiPipe
+    CategoriaPaiPipe,
+    ProdutoConsultaComponent
   ],
   imports: [
     CommonModule,

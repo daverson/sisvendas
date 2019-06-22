@@ -51,7 +51,7 @@ export class CategoriaCreateComponent implements OnInit {
   save() {
     this.categoriaService.save(this.categoria).subscribe((data:any) => {
       this.toastr.success('Categoria cadastrada com sucesso!');
-      this.router.navigate(['categoria'])
+      this.router.navigate(['categoria']);
     });
   }
 }
